@@ -1,0 +1,63 @@
+<!-- vim:set ts=2 sw=2 sts=2 et ai fdm=marker: -->
+<!DOCTYPE html>
+<html>
+<body>
+
+<script>
+
+function update() {
+
+  var now = new Date();
+  var ticks = 
+    (now.getHours() * 3600 +
+    now.getMinutes() * 60 +
+    now.getSeconds()) * 1000 +
+    now.getMilliseconds();
+
+  ticks = Math.floor(ticks / ((86400 / 65536) * 1000));
+
+  // uncomment for Gray code.
+  //ticks = ticks ^ (ticks >>> 1);
+
+  for (var i = 0; i < 16; i++) {
+    document.getElementById("clock" + i).style.backgroundColor =
+      ["black", "red"][ticks & 1];
+    ticks >>>= 1;
+  }
+
+  setTimeout(update, Math.floor(1000 / (65536 / 86400)));
+}
+
+setTimeout(update, 1000 - new Date().getMilliseconds());
+
+</script>
+
+<table style="height:100%;width:100%; position: absolute; top: 0; bottom: 0; left: 0; right: 0;border:0px solid">
+  <tr>
+    <td style="width: 25%;" id='clock15'/>
+    <td style="width: 25%;" id='clock14'/>
+    <td style="width: 25%;" id='clock13'/>
+    <td style="width: 25%;" id='clock12'/>
+  </tr>
+  <tr>
+    <td style="width: 25%;" id='clock11'/>
+    <td style="width: 25%;" id='clock10'/>
+    <td style="width: 25%;" id='clock9'/>
+    <td style="width: 25%;" id='clock8'/>
+  </tr>
+  <tr>
+    <td style="width: 25%;" id='clock7'/>
+    <td style="width: 25%;" id='clock6'/>
+    <td style="width: 25%;" id='clock5'/>
+    <td style="width: 25%;" id='clock4'/>
+  </tr>
+  <tr>
+    <td style="width: 25%;" id='clock3'/>
+    <td style="width: 25%;" id='clock2'/>
+    <td style="width: 25%;" id='clock1'/>
+    <td style="width: 25%;" id='clock0'/>
+  </tr>
+</table>
+
+</body>
+</html>
