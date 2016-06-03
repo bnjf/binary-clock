@@ -1,0 +1,6 @@
+{
+  "name": "binary-clock",
+  "tagline": "",
+  "body": "\r\na binary clock.  ticks are 1318ms to round the day into 2^16 \"seconds\".\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
