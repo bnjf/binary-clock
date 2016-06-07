@@ -2,20 +2,44 @@
 <!DOCTYPE html>
 <html>
 <body>
+
+<table
+  id='clock-table'
+  style="height:100%;width:100%; position: absolute; top: 0; bottom: 0; left: 0; right: 0;border:0px solid">
+
 <script>
-document.write('<table style="height:100%;width:100%; position: absolute; top: 0; bottom: 0; left: 0; right: 0;border:0px solid">');
+
 var x = 4;
 var y = 4;
 var b0 = x * y;
 var b = b0;
-for (var i = 0; i < y; i++) {
-  document.write('<tr>');
-  for (var j = 0; j < x; j++) {
-    document.write('<td id="clock' + --b + '"/>');
+
+document.body.addEventListener('keydown', function(event) {
+  switch (event.keyCode) {
+    case 37: x--; break;
+    case 39: x++; break;
+    case 40: y--; break;
+    case 38: y++; break;
   }
-  document.write('</tr>');
+  if (x < 1) { x = 1; }
+  if (y < 1) { y = 1; }
+  b0 = x * y;
+  update();
+});
+
+function drawTable() {
+  var r;
+  b = b0;
+  r = '';
+  for (var i = 0; i < y; i++) {
+    r = r.concat('<tr>');
+    for (var j = 0; j < x; j++) {
+      r = r.concat('<td id="clock' + --b + '"/>');
+    }
+    r = r.concat('</tr>');
+  }
+  return r;
 }
-document.write('</table>');
 
 function update() {
   var now = new Date();
@@ -30,6 +54,8 @@ function update() {
   // uncomment for Gray code.
   //ticks = ticks ^ (ticks >>> 1);
 
+  document.getElementById("clock-table").innerHTML = drawTable();
+
   for (var i = 0; i < b0; i++) {
     document.getElementById("clock" + i).style.backgroundColor =
       ["black", "red"][ticks & 1];
@@ -41,6 +67,9 @@ function update() {
 
 // try and start on a boundary
 setTimeout(update, 1000 - new Date().getMilliseconds());
+
 </script>
+
+</table>
 </body>
 </html>
