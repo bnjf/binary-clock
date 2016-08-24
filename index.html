@@ -13,6 +13,7 @@ var x = 4;
 var y = 4;
 var b0 = x * y;
 var b = b0;
+var gray = false;
 
 document.body.addEventListener('keydown', function(event) {
 
@@ -29,6 +30,12 @@ document.body.addEventListener('keydown', function(event) {
       break;
     case 38:
       y++;
+      break;
+
+    // toggle Gray code on g/G keystroke
+    case 71:
+    case 103:
+      gray = !gray;
       break;
   }
 
@@ -65,7 +72,7 @@ function update() {
   ticks = Math.floor(ticks / ((86400 / (1 << b0)) * 1000));
 
   // uncomment for Gray code.
-  //ticks = ticks ^ (ticks >>> 1);
+  if (gray) { ticks = ticks ^ (ticks >>> 1); }
 
   document.getElementById("clock-table").innerHTML = drawTable();
 
